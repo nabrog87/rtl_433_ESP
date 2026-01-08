@@ -2,13 +2,15 @@
 This is a fork from https://github.com/NorthernMan54/rtl_433_ESP  
 Many thanks to NorthernMan54.
 
-I have made some changes/additions in order to integrate it into Home Assistant via MQtt
+I have made some changes/additions in order to integrate it into Home Assistant via MQTT
 
 Boards that i have tested:
-  LILYGO® LoRa32 ESP32 @868/915Mhz
-  LILYGO® LoRa32 ESP32 V2.1_1.6 @868/915Mhz
 
-Purpouse of this is to decode messages from a Vevor 1 in 1 weather station, taht i bought from Aliexpress
+```ini
+`  LILYGO® LoRa32 ESP32 @868/915Mhz `
+`  LILYGO® LoRa32 ESP32 V2.1_1.6 @868/915Mhz `
+```
+Purpouse of this is to decode messages from a Vevor 7 in 1 weather station, tath i bought from Aliexpress
 
 https://www.aliexpress.com/item/1005007557396913.html?spm=a2g0o.order_list.order_list_main.5.65871802itfnq7
 
@@ -16,12 +18,11 @@ https://www.aliexpress.com/item/1005007557396913.html?spm=a2g0o.order_list.order
 <img width="1555" height="788" alt="image" src="https://github.com/user-attachments/assets/350a90cf-220f-4fb6-bd5d-0fe1ff313e61" />
 
 
-Instructions for building and uploading the images to Lilygo
+Instructions for building and uploading the images to Lilygo board:
 
-First of all install Visual Studio, python and git on you computer
-On Visual Studio install PlatformIO
+First of all install Visual Studio, python and git on you computer.
 
-Clone the repository on yor computer
+On Visual Studio install PlatformIO clone the repository to your local drive
 git clone https://github.com/nabrog87/rtl_433_ESP
 
 Open the platformio.ini from   
