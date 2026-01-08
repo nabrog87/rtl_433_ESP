@@ -30,22 +30,48 @@ YOUT_LOCAL_REPO_LOCATION/example/OOK_Receiver/platformio.ini
 Modify example/OOK_Receiver/Include/secrets.h with your WIFI/MQTT server details
 
 ```ini
-'-#define WIFI_SSID     "YOUR_WIFI_SSID"
-'-#define WIFI_PASS     "YOUR_WIFI_PASS"
+' #define WIFI_SSID     "YOUR_WIFI_SSID" '
+' #define WIFI_PASS     "YOUR_WIFI_PASS" '
 
-'-#define MQTT_HOST     "192.168.1.10"
-'-#define MQTT_PORT     1883
-'-#define MQTT_USER     "mqtt_user"
-'-#define MQTT_PASS     "mqtt_password-"
+' #define MQTT_HOST     "192.168.1.10" '
+' #define MQTT_PORT     1883 '
+' #define MQTT_USER     "mqtt_user" ' 
+' #define MQTT_PASS     "mqtt_password-" '
 
-'-#define MQTT_TOPIC_OK  "rtl_433/vevor"          ; MQTT Topic
-'-#define MQTT_TOPIC_RAW "rtl_433/vevor/raw"      
-'-#define MQTT_TOPIC_STAT "rtl_433/vevor/status"  ; Mqtt connection status
+' #define MQTT_TOPIC_OK  "rtl_433/vevor"  '        ; MQTT Topic
+' #define MQTT_TOPIC_RAW "rtl_433/vevor/raw" '     
+' #define MQTT_TOPIC_STAT "rtl_433/vevor/status" '  ; Mqtt connection status
 ```
 
+As mentioned in https://github.com/NorthernMan54/rtl_433_ESP?tab=readme-ov-file
+the Vevor weather station needs a FSK signal device decoder 
+So i've created a new enviroment in platformin.ini called lilygo_lora32_v21new_868_fsk
 
+```ini
+' Registering protocol [104] "Vevor Wireless Weather Station 7-in-1" ' 
+```
 
+```ini
+[env:lilygo_lora32_v21new_868_fsk]
+platform = espressif32
+framework = arduino
+board = ttgo-lora32-v21
+monitor_speed = 115200
 
+build_flags =
+  '-DRF_MODULE_FREQUENCY=868.35'  ;  I received more messages on 868.35 rather than 868.3
+; '-DPUBLISH_UNPARSED=true'
+  '-DOOK_MODULATION=false'    ; False is FSK, True is OOK
+  '-DRF_MODULE_INIT_STATUS=true'
+  '-DRAW_SIGNAL_DEBUG=true'
+  '-DRTL_DEBUG=1'
+```
+Here you can change the frequency. I have tested many frequencies and the most messages i received were on 868.35
+Also i have changed the frequency in example/OOK_Receiver/OOK_Receiver.ino to 868.35
+
+```ini
+'-#  define RF_MODULE_FREQUENCY 868.35 '-
+```
 
 ```ini
 '-DRF_MODULE_FREQUENCY=433.92'  ; 433 MHz (default)
