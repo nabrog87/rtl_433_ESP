@@ -10,7 +10,7 @@ Boards that i have tested:
 `  LILYGO® LoRa32 ESP32 @868/915Mhz `
 `  LILYGO® LoRa32 ESP32 V2.1_1.6 @868/915Mhz `
 ```
-Purpouse of this is to decode messages from a Vevor 7 in 1 weather station, tath i bought from Aliexpress
+Purpouse of this is to decode messages from a Vevor 7 in 1 weather station, that i bought from Aliexpress
 
 https://www.aliexpress.com/item/1005007557396913.html?spm=a2g0o.order_list.order_list_main.5.65871802itfnq7
 
@@ -73,9 +73,20 @@ Also i have changed the frequency in example/OOK_Receiver/OOK_Receiver.ino to 86
 ```ini
 '-#  define RF_MODULE_FREQUENCY 868.35 '-
 ```
-
 ```ini
 '-DRF_MODULE_FREQUENCY=433.92'  ; 433 MHz (default)
 '-DRF_MODULE_FREQUENCY=868.30'  ; 868 MHz (common for EU sensors)
 '-DRF_MODULE_FREQUENCY=915.00'  ; 915 MHz (US ISM band)
 ```
+
+Build the image and upload it to the board.
+
+Use the serial monitor from PlatformIo to check the received messages. Please do this when you are in a range of max 10 meters from the weather station.
+
+
+
+Also you can check the decoded messages from mqtt (using MQTT Explorer);
+
+<img width="1517" height="569" alt="image" src="https://github.com/user-attachments/assets/38b7b110-6e33-449c-b34c-02bc3be9ec72" />
+
+
