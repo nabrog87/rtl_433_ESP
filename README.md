@@ -4,6 +4,8 @@ Many thanks to NorthernMan54.
 
 I have made some changes/additions in order to integrate it into Home Assistant via MQTT
 
+<img width="1555" height="788" alt="image" src="https://github.com/user-attachments/assets/350a90cf-220f-4fb6-bd5d-0fe1ff313e61" />
+
 Boards that i have tested:
 
 ```ini
@@ -13,9 +15,6 @@ Boards that i have tested:
 Purpouse of this is to decode messages from a Vevor 7 in 1 weather station, that i bought from Aliexpress
 
 https://www.aliexpress.com/item/1005007557396913.html?spm=a2g0o.order_list.order_list_main.5.65871802itfnq7
-
-
-<img width="1555" height="788" alt="image" src="https://github.com/user-attachments/assets/350a90cf-220f-4fb6-bd5d-0fe1ff313e61" />
 
 
 Instructions for building and uploading the images to Lilygo board:
