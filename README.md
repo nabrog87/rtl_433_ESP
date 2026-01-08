@@ -29,7 +29,7 @@ YOUT_LOCAL_REPO_LOCATION/example/OOK_Receiver/platformio.ini
 
 Modify example/OOK_Receiver/Include/secrets.h with your WIFI/MQTT server details
 
-...ini
+```ini
 #define WIFI_SSID     "YOUR_WIFI_SSID"
 #define WIFI_PASS     "YOUR_WIFI_PASS"
 
@@ -41,7 +41,7 @@ Modify example/OOK_Receiver/Include/secrets.h with your WIFI/MQTT server details
 #define MQTT_TOPIC_OK  "rtl_433/vevor"
 #define MQTT_TOPIC_RAW "rtl_433/vevor/raw"
 #define MQTT_TOPIC_STAT "rtl_433/vevor/status"
----
+```
 
 
 
