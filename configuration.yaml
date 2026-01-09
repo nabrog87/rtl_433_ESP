@@ -1,0 +1,101 @@
+mqtt: 
+  - sensor:
+    - name: "Vevor Temperature"
+      state_topic: "rtl_433/vevor"
+      unit_of_measurement: "°C"
+      device_class: temperature
+      value_template: "{{ value_json.temperature_C }}"
+      unique_id: vevor_temperature_7708      
+      availability_topic: "rtl_433/vevor/status"
+      payload_available: "online"
+      payload_not_available: "offline"
+
+    - name: "Vevor Humidity"
+      state_topic: "rtl_433/vevor"
+      unit_of_measurement: "%"
+      device_class: humidity
+      value_template: "{{ value_json.humidity }}"
+      unique_id: vevor_humidity_7708      
+      availability_topic: "rtl_433/vevor/status"
+      payload_available: "online"
+      payload_not_available: "offline"
+
+    - name: "Vevor Wind Avg"
+      state_topic: "rtl_433/vevor"
+      unit_of_measurement: "km/h"
+      value_template: "{{ value_json.wind_avg_km_h }}"
+      unique_id: vevor_wind_avg_7708      
+      availability_topic: "rtl_433/vevor/status"
+      payload_available: "online"
+      payload_not_available: "offline"
+
+    - name: "Vevor Wind Gust"
+      state_topic: "rtl_433/vevor"
+      unit_of_measurement: "km/h"
+      value_template: "{{ value_json.wind_max_km_h }}"
+      unique_id: vevor_wind_gust_7708      
+      availability_topic: "rtl_433/vevor/status"
+      payload_available: "online"
+      payload_not_available: "offline"
+
+    - name: "Vevor Wind Direction"
+      state_topic: "rtl_433/vevor"
+      unit_of_measurement: "°"
+      value_template: "{{ value_json.wind_dir_deg }}"
+      unique_id: vevor_wind_dir_7708      
+      availability_topic: "rtl_433/vevor/status"
+      payload_available: "online"
+      payload_not_available: "offline"
+
+    - name: "Vevor Rain"
+      state_topic: "rtl_433/vevor"
+      unit_of_measurement: "mm"
+      device_class: precipitation
+      state_class: total_increasing
+      value_template: "{{ value_json.rain_mm }}"
+      unique_id: vevor_rain_7708      
+      availability_topic: "rtl_433/vevor/status"
+      payload_available: "online"
+      payload_not_available: "offline"
+
+    - name: "Vevor UV Index"
+      state_topic: "rtl_433/vevor"
+      value_template: "{{ value_json.uvi }}"
+      unique_id: vevor_uvi_7708      
+      availability_topic: "rtl_433/vevor/status"
+      payload_available: "online"
+      payload_not_available: "offline"
+
+    - name: "Vevor Light"
+      state_topic: "rtl_433/vevor"
+      unit_of_measurement: "lx"
+      device_class: illuminance
+      value_template: "{{ value_json.light_lux }}"
+      unique_id: vevor_light_7708
+
+    - name: "Vevor RSSI"
+      state_topic: "rtl_433/vevor"
+      unit_of_measurement: "dBm"
+      value_template: "{{ value_json.rssi }}"
+      unique_id: vevor_rssi_7708      
+      availability_topic: "rtl_433/vevor/status"
+      payload_available: "online"
+      payload_not_available: "offline"
+
+    - name: "Vevor Battery"
+      state_topic: "rtl_433/vevor"
+      device_class: battery
+      unit_of_measurement: "%"
+      value_template: "{{ 100 if value_json.battery_ok == 1 else 0 }}"
+      unique_id: vevor_battery_7708      
+      availability_topic: "rtl_433/vevor/status"
+      payload_available: "online"
+      payload_not_available: "offline"
+      
+    binary_sensor:
+    - name: "Vevor Station MQTT"
+      unique_id: vevor_station_mqtt
+      state_topic: "rtl_433/vevor/status"
+      payload_on: "online"
+      payload_off: "offline"
+      device_class: connectivity
