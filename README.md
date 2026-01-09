@@ -20,10 +20,11 @@ The Vevor station uses an FSK protocol. This repository includes a PlatformIO en
 
 - Visual Studio Code (or another code editor)
 - PlatformIO extension for VS Code
-- Python
-- Git
+- GitHub Repositories extension for VS Code
+- Python: https://www.python.org/downloads/windows/
+- Git: https://git-scm.com/install/windows
 - A supported TTGO/LilyGO LoRa32 board
-- The Vevor weather station (or other compatible RF sensors)
+- The Vevor weather station 7 in 1 (or other compatible RF sensors)
 
 ## Getting started
 
