@@ -100,7 +100,7 @@ After the device connects to Wi‑Fi and your MQTT broker, parsed sensor message
 
 ## Home Assistant
 
-i included the configuration.yaml sensors and the dashboard script
+I have included the configuration.yaml sensors and the dashboard script, with dynamic icons and colors, based on the state of sensors.
 
 ## Tips and troubleshooting
 
