@@ -102,6 +102,14 @@ After the device connects to Wi‑Fi and your MQTT broker, parsed sensor message
 
 I have included the configuration.yaml sensors and the dashboard script, with dynamic icons and colors, based on the state of sensors.
 
+To make this dashboard work you nedd to install:
+ - HACS
+ - Wind Rose Card via HACS
+ - apexcharts-card via HACS
+ - layout-card via HACS
+ - Mushroom via HACS
+ - card-mod via HACS
+
 ## Tips and troubleshooting
 
 - If you see few or no messages, try adjusting the RF frequency slightly (for example, 868.30, 868.35, 868.40).
