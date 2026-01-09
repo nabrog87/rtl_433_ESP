@@ -102,7 +102,7 @@ After the device connects to Wi‑Fi and your MQTT broker, parsed sensor message
 
 I have included the configuration.yaml sensors and the dashboard script, with dynamic icons and colors, based on the state of sensors.
 
-To make this dashboard work you nedd to install:
+To make this dashboard to work you need to install a few components
  - HACS
  - Wind Rose Card via HACS
  - apexcharts-card via HACS
