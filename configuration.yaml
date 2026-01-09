@@ -99,3 +99,13 @@ mqtt:
       payload_on: "online"
       payload_off: "offline"
       device_class: connectivity
+
+template: 
+    - trigger:
+      - platform: mqtt
+        topic: "rtl_433/vevor"
+    sensor:
+      - name: "Vevor Last Update"
+        unique_id: vevor_last_update
+        device_class: timestamp
+        state: "{{ now() }}"
