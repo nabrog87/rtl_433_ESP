@@ -98,6 +98,10 @@ After the device connects to Wi‑Fi and your MQTT broker, parsed sensor message
 
 <img width="1517" height="569" alt="image" src="https://github.com/user-attachments/assets/38b7b110-6e33-449c-b34c-02bc3be9ec72" />
 
+## Home Assistant
+
+i included the configuration.yaml sensors and the dashboard script
+
 ## Tips and troubleshooting
 
 - If you see few or no messages, try adjusting the RF frequency slightly (for example, 868.30, 868.35, 868.40).
