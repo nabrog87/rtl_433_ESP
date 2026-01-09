@@ -1,0 +1,641 @@
+
+views:
+  - title: Home
+  - type: sections
+    title: Statie Meteo Vevor 7in1
+    path: vevor
+    icon: mdi:weather-partly-cloudy
+    max_columns: 3
+    top_margin: false
+    header:
+      layout: responsive
+      badges_position: bottom
+      badges_wrap: wrap
+    badges: []
+    cards: []
+    layout: {}
+    sections:
+      - type: grid
+        layout: responsive
+        column_span: 3
+        cards:
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-columns: repeat(9, 1fr)
+              grid-gap: 10px
+              margin: 0
+              mediaquery:
+                '(max-width: 900px)':
+                  grid-template-columns: repeat(3, 1fr)
+            cards:
+              - type: custom:mushroom-template-card
+                entity: sensor.vevor_temperature
+                name: Temperature
+                primary: Temperature
+                secondary: >
+                  {% set s = states('sensor.vevor_temperature') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    unavailable
+                  {% else %}
+                    {% set t = s|float %}
+                    {{ '%.1f'|format(t) }} °C •
+                    {% if t < 0 %} Freezing
+                    {% elif t < 10 %} Cold
+                    {% elif t < 20 %} OK
+                    {% elif t < 30 %} Warm
+                    {% elif t < 35 %} Very warm
+                    {% else %} Heat
+                    {% endif %}
+                  {% endif %}
+                layout: vertical
+                fill_container: true
+                tap_action:
+                  action: more-info
+                icon: >
+                  {% set s = states('sensor.vevor_temperature') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    mdi:thermometer-off
+                  {% else %}
+                    {% set t = s|float %}
+                    {% if t < 0 %} mdi:snowflake
+                    {% elif t < 10 %} mdi:thermometer-low
+                    {% elif t < 20 %} mdi:thermometer
+                    {% elif t < 30 %} mdi:thermometer-high
+                    {% else %} mdi:fire
+                    {% endif %}
+                  {% endif %}
+                icon_color: >
+                  {% set s = states('sensor.vevor_temperature') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    disabled
+                  {% else %}
+                    {% set t = s|float %}
+                    {% if t < 0 %} indigo
+                    {% elif t < 10 %} blue
+                    {% elif t < 20 %} green
+                    {% elif t < 30 %} orange
+                    {% else %} red
+                    {% endif %}
+                  {% endif %}
+                card_mod:
+                  style: |
+                    {% set s = states('sensor.vevor_temperature') %}
+                    {% if s not in ['unknown','unavailable',''] %}
+                      {% set t = s|float %}
+                      {% if t >= 35 or t <= -3 %}
+                      @keyframes temp-pulse {
+                        0% { transform: scale(1); opacity: 1; }
+                        50% { transform: scale(1.18); opacity: .6; }
+                        100% { transform: scale(1); opacity: 1; }
+                      }
+                      ha-state-icon { animation: temp-pulse 1.3s ease-in-out infinite; }
+                      {% endif %}
+                    {% endif %}
+              - type: custom:mushroom-template-card
+                entity: sensor.vevor_humidity
+                name: Humidity
+                primary: Humidity
+                secondary: >
+                  {% set s = states('sensor.vevor_humidity') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    unavailable
+                  {% else %}
+                    {% set h = s|float %}
+                    {{ h|round(0) }} % •
+                    {% if h < 30 %} Dry
+                    {% elif h < 60 %} Comfortable
+                    {% elif h < 80 %} Humid
+                    {% else %} Very humid
+                    {% endif %}
+                  {% endif %}
+                layout: vertical
+                fill_container: true
+                tap_action:
+                  action: more-info
+                icon: >
+                  {% set s = states('sensor.vevor_humidity') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    mdi:water-off
+                  {% else %}
+                    {% set h = s|float %}
+                    {% if h < 30 %} mdi:cactus
+                    {% elif h < 60 %} mdi:water-percent
+                    {% elif h < 80 %} mdi:weather-fog
+                    {% else %} mdi:water-alert
+                    {% endif %}
+                  {% endif %}
+                icon_color: >
+                  {% set s = states('sensor.vevor_humidity') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    disabled
+                  {% else %}
+                    {% set h = s|float %}
+                    {% if h < 30 %} orange
+                    {% elif h < 60 %} green
+                    {% elif h < 80 %} blue
+                    {% else %} red
+                    {% endif %}
+                  {% endif %}
+                card_mod:
+                  style: |
+                    {% set s = states('sensor.vevor_humidity') %}
+                    {% if s not in ['unknown','unavailable',''] %}
+                      {% set h = s|float %}
+                      {% if h >= 85 or h <= 25 %}
+                      @keyframes hum-pulse {
+                        0% { transform: scale(1); opacity: 1; }
+                        50% { transform: scale(1.18); opacity: .6; }
+                        100% { transform: scale(1); opacity: 1; }
+                      }
+                      ha-state-icon { animation: hum-pulse 1.3s ease-in-out infinite; }
+                      {% endif %}
+                    {% endif %}
+              - type: custom:mushroom-template-card
+                entity: sensor.vevor_wind_avg
+                name: Wind
+                primary: Wind
+                secondary: >
+                  {% set s = states('sensor.vevor_wind_avg') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    unavailable
+                  {% else %}
+                    {% set w = s|float %}
+                    {{ w|round(1) }} km/h •
+                    {% if w < 5 %} Light
+                    {% elif w < 15 %} Moderate
+                    {% elif w < 30 %} Strong
+                    {% else %} Dangerous
+                    {% endif %}
+                  {% endif %}
+                layout: vertical
+                fill_container: true
+                tap_action:
+                  action: more-info
+                icon: >
+                  {% set s = states('sensor.vevor_wind_avg') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    mdi:weather-windy
+                  {% else %}
+                    {% set w = s|float %}
+                    {% if w < 5 %} mdi:weather-windy
+                    {% elif w < 15 %} mdi:weather-windy-variant
+                    {% elif w < 30 %} mdi:weather-tornado
+                    {% else %} mdi:alert
+                    {% endif %}
+                  {% endif %}
+                icon_color: >
+                  {% set s = states('sensor.vevor_wind_avg') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    disabled
+                  {% else %}
+                    {% set w = s|float %}
+                    {% if w < 5 %} green
+                    {% elif w < 15 %} blue
+                    {% elif w < 30 %} orange
+                    {% else %} red
+                    {% endif %}
+                  {% endif %}
+                card_mod:
+                  style: |
+                    {% set s = states('sensor.vevor_wind_avg') %}
+                    {% if s not in ['unknown','unavailable',''] %}
+                      {% set w = s|float %}
+                      {% if w >= 8 %}
+                      @keyframes wind-spin {
+                        from { transform: rotate(0deg); }
+                        to { transform: rotate(360deg); }
+                      }
+                      ha-state-icon { animation: wind-spin 1.3s linear infinite; }
+                      {% endif %}
+                    {% endif %}
+              - type: custom:mushroom-template-card
+                entity: sensor.vevor_wind_gust
+                name: Gusts
+                primary: Gusts
+                secondary: >
+                  {% set s = states('sensor.vevor_wind_gust') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    unavailable
+                  {% else %}
+                    {% set g = s|float %}
+                    {{ g|round(1) }} km/h •
+                    {% if g < 10 %} OK
+                    {% elif g < 25 %} Caution
+                    {% else %} ALERT
+                    {% endif %}
+                  {% endif %}
+                layout: vertical
+                fill_container: true
+                tap_action:
+                  action: more-info
+                icon: >
+                  {% set s = states('sensor.vevor_wind_gust') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    mdi:weather-windy
+                  {% else %}
+                    {% set g = s|float %}
+                    {% if g < 10 %} mdi:weather-windy
+                    {% elif g < 25 %} mdi:weather-tornado
+                    {% else %} mdi:alert-decagram
+                    {% endif %}
+                  {% endif %}
+                icon_color: >
+                  {% set s = states('sensor.vevor_wind_gust') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    disabled
+                  {% else %}
+                    {% set g = s|float %}
+                    {% if g < 10 %} green
+                    {% elif g < 25 %} orange
+                    {% else %} red
+                    {% endif %}
+                  {% endif %}
+                card_mod:
+                  style: |
+                    {% set s = states('sensor.vevor_wind_gust') %}
+                    {% if s not in ['unknown','unavailable',''] %}
+                      {% set g = s|float %}
+                      {% if g >= 25 %}
+                      @keyframes gust-pulse {
+                        0% { transform: scale(1); opacity: 1; }
+                        50% { transform: scale(1.2); opacity: .55; }
+                        100% { transform: scale(1); opacity: 1; }
+                      }
+                      ha-state-icon { animation: gust-pulse 1.3s ease-in-out infinite; }
+                      {% endif %}
+                    {% endif %}
+              - type: custom:mushroom-template-card
+                entity: sensor.vevor_wind_direction
+                name: Wind direction
+                primary: Wind direction
+                secondary: >
+                  {% set s = states('sensor.vevor_wind_direction') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    unavailable
+                  {% else %}
+                    {% set d = s|float %}
+                    {{ d|round(0) }}° •
+                    {% set dirs = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'] %}
+                    {{ dirs[((d/22.5)|round(0)) % 16] }}
+                  {% endif %}
+                layout: vertical
+                fill_container: true
+                tap_action:
+                  action: more-info
+                icon: >
+                  {% set sd = states('sensor.vevor_wind_direction') %} {% if sd
+                  in ['unknown','unavailable',''] %}
+                    mdi:compass-off
+                  {% else %}
+                    mdi:compass
+                  {% endif %}
+                icon_color: >
+                  {% set sd = states('sensor.vevor_wind_direction') %} {% if sd
+                  in ['unknown','unavailable',''] %}
+                    disabled
+                  {% else %}
+                    {% set sg = states('sensor.vevor_wind_gust') %}
+                    {% if sg in ['unknown','unavailable',''] %}
+                      blue
+                    {% else %}
+                      {% set g = sg|float %}
+                      {% if g < 5 %} green
+                      {% elif g < 20 %} orange
+                      {% else %} red
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                card_mod:
+                  style: |
+                    {% set sd = states('sensor.vevor_wind_direction') %}
+                    ha-state-icon {
+                      {% if sd in ['unknown','unavailable',''] %}
+                        transform: none;
+                      {% else %}
+                        transform: rotate({{ (sd|float)|round(0) }}deg);
+                      {% endif %}
+                    }
+              - type: custom:mushroom-template-card
+                entity: sensor.vevor_light
+                name: Light
+                primary: Light
+                secondary: >
+                  {% set s = states('sensor.vevor_light') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    unavailable
+                  {% else %}
+                    {{ s }} lx
+                  {% endif %}
+                layout: vertical
+                fill_container: true
+                tap_action:
+                  action: more-info
+                icon: >
+                  {% set s = states('sensor.vevor_light') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    mdi:lightbulb
+                  {% else %}
+                    {% set lux = s|float %}
+                    {% if lux < 10 %} mdi:weather-night
+                    {% elif lux < 300 %} mdi:weather-cloudy
+                    {% elif lux < 3000 %} mdi:weather-partly-cloudy
+                    {% else %} mdi:white-balance-sunny
+                    {% endif %}
+                  {% endif %}
+                icon_color: >
+                  {% set s = states('sensor.vevor_light') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    gray
+                  {% else %}
+                    {% set lux = s|float %}
+                    {% if lux < 10 %} purple
+                    {% elif lux < 100 %} blue
+                    {% elif lux < 1000 %} green
+                    {% elif lux < 10000 %} yellow
+                    {% elif lux < 50000 %} orange
+                    {% else %} red
+                    {% endif %}
+                  {% endif %}
+              - type: custom:mushroom-template-card
+                entity: sensor.vevor_uv_index
+                name: UV
+                primary: UV
+                secondary: >
+                  {% set slux = states('sensor.vevor_light') %} {% set suv  =
+                  states('sensor.vevor_uv_index') %} {% if suv in
+                  ['unknown','unavailable',''] %}
+                    unavailable
+                  {% else %}
+                    {% set lux = 0 if slux in ['unknown','unavailable',''] else (slux|float) %}
+                    {% set uv  = suv|float %}
+                    {% if lux < 10 %}
+                      Night • UV ~ 0
+                    {% else %}
+                      {{ uv }}
+                      {% if uv < 3 %} • Low risk
+                      {% elif uv < 6 %} • Moderate risk
+                      {% elif uv < 8 %} • High risk
+                      {% elif uv < 11 %} • Very high risk
+                      {% else %} • Extreme risk
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                layout: vertical
+                fill_container: true
+                tap_action:
+                  action: more-info
+                icon: >
+                  {% set slux = states('sensor.vevor_light') %} {% set suv  =
+                  states('sensor.vevor_uv_index') %} {% if suv in
+                  ['unknown','unavailable',''] %}
+                    mdi:sun-wireless
+                  {% else %}
+                    {% set lux = 0 if slux in ['unknown','unavailable',''] else (slux|float) %}
+                    {% set uv  = suv|float %}
+                    {% if lux < 10 %} mdi:weather-night
+                    {% elif uv < 3 %} mdi:weather-sunny
+                    {% elif uv < 8 %} mdi:weather-sunny-alert
+                    {% else %} mdi:alert-decagram
+                    {% endif %}
+                  {% endif %}
+                icon_color: >
+                  {% set slux = states('sensor.vevor_light') %} {% set suv  =
+                  states('sensor.vevor_uv_index') %} {% if suv in
+                  ['unknown','unavailable',''] %}
+                    disabled
+                  {% else %}
+                    {% set lux = 0 if slux in ['unknown','unavailable',''] else (slux|float) %}
+                    {% set uv  = suv|float %}
+                    {% if lux < 10 %} purple
+                    {% elif uv < 3 %} green
+                    {% elif uv < 6 %} yellow
+                    {% elif uv < 8 %} orange
+                    {% elif uv < 11 %} red
+                    {% else %} purple
+                    {% endif %}
+                  {% endif %}
+                card_mod:
+                  style: |
+                    {% set slux = states('sensor.vevor_light') %}
+                    {% set suv  = states('sensor.vevor_uv_index') %}
+                    {% if suv not in ['unknown','unavailable',''] %}
+                      {% set lux = 0 if slux in ['unknown','unavailable',''] else (slux|float) %}
+                      {% set uv  = suv|float %}
+                      {% if lux >= 10 and uv >= 8 %}
+                      @keyframes uv-pulse {
+                        0%   { transform: scale(1);   opacity: 1; }
+                        50%  { transform: scale(1.18); opacity: .55; }
+                        100% { transform: scale(1);   opacity: 1; }
+                      }
+                      ha-state-icon { animation: uv-pulse 1.3s ease-in-out infinite; }
+                      {% endif %}
+                    {% endif %}
+              - type: custom:mushroom-template-card
+                entity: sensor.vevor_rssi
+                name: Signal
+                primary: Signal
+                secondary: >
+                  {% set s = states('sensor.vevor_rssi') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    unavailable
+                  {% else %}
+                    {{ s }} dBm
+                  {% endif %}
+                icon: >
+                  {% set s = states('sensor.vevor_rssi') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    mdi:signal-off
+                  {% else %}
+                    {% set rssi = s|float %}
+                    {% if rssi >= -70 %} mdi:signal-cellular-3
+                    {% elif rssi >= -85 %} mdi:signal-cellular-2
+                    {% else %} mdi:signal-cellular-1
+                    {% endif %}
+                  {% endif %}
+                icon_color: >
+                  {% set s = states('sensor.vevor_rssi') %} {% if s in
+                  ['unknown','unavailable',''] %}
+                    disabled
+                  {% else %}
+                    {% set rssi = s|float %}
+                    {% if rssi >= -60 %} green
+                    {% elif rssi >= -70 %} light-green
+                    {% elif rssi >= -80 %} orange
+                    {% elif rssi >= -90 %} deep-orange
+                    {% elif rssi >= -100 %} red
+                    {% else %} purple
+                    {% endif %}
+                  {% endif %}
+                fill_container: true
+                layout: vertical
+                multiline_secondary: false
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: binary_sensor.vevor_station_mqtt
+                name: MQTT
+                primary: MQTT status
+                layout: vertical
+                secondary: >
+                  {% set t = states('sensor.vevor_last_update') %} {% if t in
+                  ['unknown','unavailable','none',''] %}
+                    —
+                  {% else %}
+                    {% set s = (as_timestamp(now()) - as_timestamp(t)) | int %}
+                    {% set m = (s // 60) %}
+                    {% if is_state('binary_sensor.vevor_station_mqtt', 'on') %}Online{% else %}Offline{% endif %}
+                    • {{ m }} min
+                  {% endif %}
+                icon: |
+                  {% if is_state('binary_sensor.vevor_station_mqtt', 'on') %}
+                    mdi:cloud-check
+                  {% else %}
+                    mdi:cloud-off-outline
+                  {% endif %}
+                tap_action:
+                  action: more-info
+                icon_color: |
+                  {% if is_state('binary_sensor.vevor_station_mqtt', 'on') %}
+                    green
+                  {% else %}
+                    red
+                  {% endif %}
+            grid_options:
+              columns: 36
+              rows: auto
+      - type: grid
+        cards:
+          - type: custom:windrose-card
+            title: Wind (48h)
+            data_period:
+              hours_to_show: 48
+            refresh_interval: 60
+            windspeed_bar_location: bottom
+            wind_direction_entity:
+              entity: sensor.vevor_wind_direction
+              use_statistics: false
+              direction_compensation: 16
+            windspeed_entities:
+              - entity: sensor.vevor_wind_gust
+                name: ''
+                speed_unit: kph
+                use_statistics: false
+                windspeed_bar_full: true
+                output_speed_unit: kph
+                speed_range_beaufort: true
+            direction_labels:
+              cardinal_direction_letters: NESW
+            windrose_draw_north_offset: 0
+            current_direction:
+              show_arrow: true
+              arrow_size: 50
+              center_circle_size: 15
+            compass_direction:
+              auto_rotate: false
+              entity: sensor.vevor_wind_direction
+            cardinal_direction_letters: N,E,S,W
+            matching_strategy: direction-first
+            center_calm_percentage: true
+      - type: grid
+        cards:
+          - type: custom:apexcharts-card
+            header:
+              show: true
+              title: Temperature & Humidity (48h)
+            graph_span: 48h
+            now:
+              show: true
+            card_mod:
+              style: |
+                ha-card {
+                  height: 280px;
+                }
+            apex_config:
+              chart:
+                height: 240
+            series:
+              - entity: sensor.vevor_temperature
+                name: Temp (°C)
+                type: line
+                yaxis_id: left
+              - entity: sensor.vevor_humidity
+                name: RH (%)
+                type: line
+                yaxis_id: right
+            yaxis:
+              - id: left
+                opposite: false
+                decimals: 1
+              - id: right
+                opposite: true
+                decimals: 0
+                min: 0
+                max: 100
+          - type: custom:apexcharts-card
+            header:
+              show: true
+              title: UV & Light (48h)
+            card_mod:
+              style: |
+                ha-card {
+                  height: 280px;
+                }
+            apex_config:
+              chart:
+                height: 240
+            graph_span: 48h
+            series:
+              - entity: sensor.vevor_uv_index
+                name: UV Index
+                type: line
+              - entity: sensor.vevor_light
+                name: Lux
+                type: line
+                yaxis_id: right
+            yaxis:
+              - id: left
+                opposite: true
+      - type: grid
+        cards:
+          - type: custom:apexcharts-card
+            header:
+              show: true
+              title: Total rain (7 days)
+            graph_span: 7d
+            card_mod:
+              style: |
+                ha-card {
+                  height: 280px;
+                }
+            apex_config:
+              chart:
+                height: 240
+            now:
+              show: false
+            series:
+              - entity: sensor.vevor_rain
+                name: Total (mm)
+                type: area
+          - type: custom:apexcharts-card
+            header:
+              show: true
+              title: Wind (48h)
+            graph_span: 48h
+            card_mod:
+              style: |
+                ha-card {
+                  height: 280px;
+                }
+            apex_config:
+              chart:
+                height: 240
+            now:
+              show: true
+            series:
+              - entity: sensor.vevor_wind_avg
+                name: Average (km/h)
+                type: line
+              - entity: sensor.vevor_wind_gust
+                name: Gusts (km/h)
+                type: line
