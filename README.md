@@ -24,6 +24,7 @@ The Vevor station uses an FSK protocol. This repository includes a PlatformIO en
 - Python: https://www.python.org/downloads/windows/
 - Git: https://git-scm.com/install/windows
 - A supported TTGO/LilyGO LoRa32 board
+- Board drivers: https://www.wch.cn/downloads/CH343SER_ZIP.html or https://www.silabs.com/software-and-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads
 - The Vevor weather station 7 in 1 (or other compatible RF sensors)
 
 ## Getting started
