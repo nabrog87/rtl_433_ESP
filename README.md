@@ -32,7 +32,7 @@ The Vevor station uses an FSK protocol. This repository includes a PlatformIO en
 1. Clone this repository:
    git clone https://github.com/nabrog87/rtl_433_ESP
 
-2. Open Visual Studio Code and install/enable the PlatformIO extension if needed.
+2. Open Visual Studio Code and install/enable the PlatformIO and GitHub Repositories extensions.
 
 3. Open the PlatformIO project at `example/OOK_Receiver/platformio.ini`.
 
