@@ -21,7 +21,6 @@ The Vevor station uses an FSK protocol. This repository includes a PlatformIO en
 - Visual Studio Code (or another code editor)
 - PlatformIO extension for VS Code
 - GitHub Repositories extension for VS Code
-- Python: https://www.python.org/downloads/windows/
 - Git: https://git-scm.com/install/windows
 - A supported TTGO/LilyGO LoRa32 board
 - Board drivers: https://www.wch.cn/downloads/CH343SER_ZIP.html or https://www.silabs.com/software-and-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads
@@ -81,8 +80,11 @@ I had the best reception at 868.35 MHz for my station. You can try other common 
 -DRF_MODULE_FREQUENCY=915.00   ; 915 MHz (US ISM band)
 ```
 
-Also update the frequency constant in `example/OOK_Receiver/OOK_Receiver.ino` if it is present.
+Also update the frequency constant in `example/OOK_Receiver/OOK_Receiver.ino` .
 
+```ini
+   #define RF_MODULE_FREQUENCY 433.92
+```
 ## Build and upload
 
 1. In PlatformIO, select the `lilygo_lora32_v21new_868_fsk` environment (or another environment that matches your board).
