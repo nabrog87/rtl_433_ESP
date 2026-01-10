@@ -83,7 +83,7 @@ I had the best reception at 868.35 MHz for my station. You can try other common 
 Also update the frequency constant in `example/OOK_Receiver/OOK_Receiver.ino` .
 
 ```ini
-   #define RF_MODULE_FREQUENCY 868.35
+'   #define RF_MODULE_FREQUENCY 868.35  '
 ```
 ## Build and upload
 
